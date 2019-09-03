@@ -9,7 +9,7 @@ class wp::cli (
 		'RedHat'		=> 'php',
 		'CentOS'		=> 'php',
 		'Debian'  	=> 'php5',
-		'Ubuntu'    => $::operatingsystemmajrelease ?  { '18.04' => 'php7.2', '16.04' => 'php7.0', default => php }, 
+		'Ubuntu'    => $::operatingsystemmajrelease ?  { '18.04' => 'php7.3', '16.04' => 'php7.3', default => php }, 
 		default			=> 'php',
 	} 
 
@@ -52,6 +52,7 @@ class wp::cli (
 	if ! defined(Package["$phpprefix-cli"]) {
 		package { "$phpprefix-cli":
 			ensure => installed,
+			tag    => 'php',
 		}
 	}
 
