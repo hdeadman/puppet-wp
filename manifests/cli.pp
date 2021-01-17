@@ -1,17 +1,16 @@
 class wp::cli (
 	$ensure = 'installed',
 	$install_path = '/usr/local/src/wp-cli',
-	$version = 'dev-master'
-) {
-	include wp
-
+	$version = 'dev-master',
 	$phpprefix = $::operatingsystem ? {
 		'RedHat'		=> 'php',
 		'CentOS'		=> 'php',
 		'Debian'  	=> 'php5',
 		'Ubuntu'    => $::operatingsystemmajrelease ?  { '18.04' => 'php7.3', '16.04' => 'php7.3', default => php }, 
 		default			=> 'php',
-	} 
+	}
+) {
+	include wp
 
 	if 'installed' == $ensure or 'present' == $ensure {
 		# Create the install path
@@ -49,8 +48,8 @@ class wp::cli (
 		}
 	}
 
-	if ! defined(Package["$phpprefix-cli"]) {
-		package { "$phpprefix-cli":
+	if ! defined(Package["${phpprefix}-cli"]) {
+		package { "${phpprefix}-cli":
 			ensure => installed,
 			tag    => 'php',
 		}
